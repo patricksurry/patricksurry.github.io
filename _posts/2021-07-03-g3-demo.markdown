@@ -7,6 +7,8 @@ thumbnail: gauge.jpg
 tags: g3 gauges dataviz
 ---
 
+<!-- markdownlint-disable MD033 -->
+
 [G3][g3] is a flexible Javascript framework
 for building steam gauge instrument panels
 that display live external metrics from flight (or other) simulators

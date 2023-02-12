@@ -71,7 +71,7 @@ layout: page
 <!-- PDS: thumbnails-->
 {% if post.thumbnail %}
 <div class="post-thumbnail">
-    <img src="{{ '/assets/img/thumbs/' | append: post.thumbnail | relative_url }}">
+    <img alt="{{ post.thumbnail }} thumbnail" src="{{ '/assets/img/thumbs/' | append: post.thumbnail | relative_url }}">
 </div>
 {% endif %}
 

@@ -7,6 +7,8 @@ math: true
 tags: math dataviz
 ---
 
+<!-- markdownlint-disable MD033 -->
+
 I wanted to draw a month-at-a-glance calendar page with several days circled,
 but drawing perfect circles looked odd,
 so I looked for a way to imitiate hand-drawn (imperfect) circles.
@@ -23,7 +25,6 @@ based on [this approximation to a perfect circle][approx].
 [clone]: https://blocks.roadtolarissa.com/patricksurry/11087975
 
 <svg id='perturb0' width='100' height='100' viewBox="-1.5 -1.5 3 3"></svg>
-
 
 For my application the circles don't need to be closed since I'm not filling them,
 but that would be an easy modification.
@@ -62,7 +63,6 @@ $P_1 = (d, \beta)$,
 $P_2 = (d, \pi/2 - \beta)$,
 $P_3 = (1, \pi/2)$,
 where $\beta = \arctan c$ and $d = \sqrt{c^2+1}$.
-
 
 Now we just need to add a bit of randomness as we generate the path.
 I decided to do this in four ways:

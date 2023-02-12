@@ -6,6 +6,8 @@ thumbnail: hexcubes.png
 tags: hexagons dataviz
 ---
 
+<!-- markdownlint-disable MD033 -->
+
 This visualization was inspired by Amit Patel's diagram illustrating [cube coordinates][coords]. That diagram initially confused me because the edges of the grid cubes centered on integer coordinates in the plane x + y + z = 0 don't themselves lie in the plane, so it seemed like the animation "cheated" at the end by dissolving to planar hexagons.  But of course the point is just that the silhouettes of those cubes form a perfect hexagonal tiling of the plane.  That tiling is highlighted as red hexagons here.
 
 [coords]: https://www.redblobgames.com/grids/hexagons/#coordinates-cube
@@ -113,13 +115,11 @@ const
     projpath = ps => svgline(ps.map(proj2d)),
     hexpath = projpath(cubehex.map(v => vertices[v]));
 
-
 // generate an SVG translation for a 3d coordinate, to locate cubes on the grid
 function gridTransform(p3) {
     const [x, y] = proj2d(p3);
     return 'translate(' + x + ',' + y + ')'
 }
-
 
 // return a point at w between p and q if one exists
 function splitEdge(p, q, w) {
@@ -146,12 +146,10 @@ function faceClip(face, w) {
     }).flat(1);
 }
 
-
 // slice a cube at the w plane by finding all edge intersections with the plane
 function cubeSlice(w) {
     return edges.map(([i,j]) => splitEdge(vertices[i], vertices[j], w)).filter(p => p);
 }
-
 
 // generate the SVG container with appropriate scaling
 var svg = d3.select('#animation')
@@ -184,7 +182,6 @@ var cubes = svg.append('g')
     .attr('d', ([face, _]) => projpath(face.map(v => vertices[v])))
     // restrict to just the w=0 cubes that we'll slice through during animation
     .filter(([_, p]) => p.x + p.y + p.z == 0);
-
 
 // add a container for the faces created by slicing the w=0 cubes
 // note we have to repeat the transformations in a separate <g> element
