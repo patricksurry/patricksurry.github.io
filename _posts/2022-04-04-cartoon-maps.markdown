@@ -6,6 +6,8 @@ thumbnail: cartoon-map.jpg
 tags: d3 maps dataviz
 ---
 
+<!-- markdownlint-disable MD033 -->
+
 A quick visualization experiment to create an informal / cartoonish map
 reminiscent of the game of *Risk*.
 
