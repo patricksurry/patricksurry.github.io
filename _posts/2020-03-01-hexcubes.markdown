@@ -1,0 +1,240 @@
+---
+layout: post
+title:  "Hex cube visualization"
+date:   2020-03-01
+thumbnail: hexcubes.png
+tags: hexagons dataviz
+---
+
+This visualization was inspired by Amit Patel's diagram illustrating [cube coordinates][coords]. That diagram initially confused me because the edges of the grid cubes centered on integer coordinates in the plane x + y + z = 0 don't themselves lie in the plane, so it seemed like the animation "cheated" at the end by dissolving to planar hexagons.  But of course the point is just that the silhouettes of those cubes form a perfect hexagonal tiling of the plane.  That tiling is highlighted as red hexagons here.
+
+[coords]: (https://www.redblobgames.com/grids/hexagons/#coordinates-cube)
+
+<div id='animation'></div>
+
+> This was originally a [gist][gist] hosted at bl.ocks.org, which seems dead now. This [clone][clone] might still work.
+{: .prompt-info }
+
+[gist]: https://gist.github.com/patricksurry/0603b407fa0a0071b59366219c67abca
+[clone]: https://blocks.roadtolarissa.com/patricksurry/0603b407fa0a0071b59366219c67abca
+
+I made this animation to get a better intuition for how those cubes intersect the zero plane. It shows what happens as we slice the cubes at x + y + z = w while reducing w towards 0.  Fittingly the slice where the zero plane intersects each cube is in fact itself a hexagon which is inscribed within the hexagonal silhouette of the cube and rotated by 30° to that tiling.  In the triangular gaps we see grid cubes centered on the planes x + y + z = ±1 poking through from above or below.
+
+It also helps explain how the [cube rounding][rounding] algorithm works. Starting with a 2D point, we find the corresponding cube coordinate (x, y, z) on the plane x + y + z = 0. When we round to integers (rx, ry, rz) we either end up with rx + ry + rz = 0 - a cube centered on the zero plane - implying our original 2D point was in one of the inscribed hexagons, or we have rx + ry + rz = ±1 which means our original point was in one of the small triangular regions where a grid cube centered off the zero plane shows through.  Each such cube has exactly three neighbours that are centered on the zero plane, found by varying x, y or z by one in the appropriate direction.  Using the [cube distance][distance] algorithm, we can determine the right neighbour by minimizing the max of the three axis distances.
+
+[rounding]: https://www.redblobgames.com/grids/hexagons/#rounding
+[distance]: https://www.redblobgames.com/grids/hexagons/#distances-cube
+
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<style>
+svg {
+    display: block;
+    margin: 0 auto;
+}
+path {
+    stroke: #aaa;
+    vector-effect: non-scaling-stroke;
+}
+.slice {
+    fill: #eee;
+}
+.hex {
+    fill: none;
+    stroke: #B14945;
+    stroke-width: 3;
+}
+.silhouette {
+    fill: none;
+    stroke: #eee;
+}
+</style>
+<script>
+const
+    sqrt3_2 = Math.sqrt(3)/2,
+    eps = 1e-12,
+    width = 500,
+    height = 420,
+    scale = width/12,
+    /*
+    Models the unit cube using the vertex labeling and axis orientation below,
+    where vertex 0 and 7 are coincident in the orthgographic projection on the x+y+z = 0 plane.
+            +z
+            .         4
+           / \       / \
+          .   .     5   6
+          |\ /|     |\ /|
+          . . .     1 0 2
+           \|/       \|/
+        +x  . +y      3
+    Calculate vertex coordinates using the bit pattern of the index, offset by +/- 0.5
+    so unit cube is centered at 0,0,0
+    */
+    vertices = d3.range(8).map(v => {
+        const
+            x = (v & 1) - 0.5,
+            y = ((v>>1) & 1) - 0.5,
+            z = ((v>>2) & 1) - 0.5;
+        return {x: x, y: y, z: z}
+    }),
+    // vertex lists defining the three upward faces of the projected cube, using right-hand convention
+    faces = [[7, 6, 4, 5], [7, 5, 1, 3], [7, 3, 2, 6]],
+    // list of edges forming the cube listed in right hand cycles from bottom to top so we can
+    // easily calculate slices in the x+y+z = w pleane
+    edges = [
+        [0,1], [0,2], [0,4],
+        [1,3], [2,3], [2,6], [4,6], [4,5], [1,5],
+        [3,7], [6,7], [5,7],
+    ],
+    // the vertices which define the outline of the projected cube, which forms our 2D hexes
+    cubehex = [1,3,2,6,4,5],
+    // a grid of [-2, -1, 0, 1, 2]^3 points on or below the x+y+z=0 plane
+    grid = d3.range(-2,3).map(
+            x => d3.range(-2, 3).map(
+                y => d3.range(-2, 3).map(
+                    z => {return {x: x, y: y, z: z}}
+                )
+            )
+        )
+        .flat(3)
+        // take only cubes on or below w = 0
+        .filter(d => d.x + d.y + d.z <= 0)
+        // make sure they're sorted by depth so we draw uppermost cubes later
+        .sort((p, q) => d3.ascending(p.x+p.y+p.z, q.x+q.y+q.z)),
+    // animation duration and tweening on w slices and showing hex outlines
+    duration = 8000,
+    wScale = d3.scaleLinear().domain([0, 0.25, 0.75, 1]).range([1.5, 0, 0, 1.5]),
+    oScale = d3.scaleLinear().domain([0, 0.4, 0.55, 0.6, 1]).range([0, 0, 1, 0, 0])
+    ;
+
+const
+    // inline functions to project cube coord to 2d, and generate an SVG path
+    proj2d = p3 => [sqrt3_2 * (p3.y - p3.x), p3.z - 0.5 * (p3.x + p3.y)],
+    svgline = d3.line().curve(d3.curveLinearClosed),
+    projpath = ps => svgline(ps.map(proj2d)),
+    hexpath = projpath(cubehex.map(v => vertices[v]));
+
+
+// generate an SVG translation for a 3d coordinate, to locate cubes on the grid
+function gridTransform(p3) {
+    const [x, y] = proj2d(p3);
+    return 'translate(' + x + ',' + y + ')'
+}
+
+
+// return a point at w between p and q if one exists
+function splitEdge(p, q, w) {
+    const
+        pw = p.x + p.y + p.z,
+        qw = q.x + q.y + q.z,
+        t = (w - pw)/(qw - pw);
+
+    return (0 <= t && t < 1) ? {
+            x: p.x + t * (q.x - p.x),
+            y: p.y + t * (q.y - p.y),
+            z: p.z + t * (q.z - p.z)
+        } : null;
+}
+
+// clip a cube face at the w plane by splitting edges and excluding points above w
+function faceClip(face, w) {
+    const n = face.length;
+    return face.map((v, i) => {
+        const vi = vertices[v],
+            vj = vertices[face[(i+1)%n]],
+            p = splitEdge(vi, vj, w);
+        return [vi, p].filter(q => q && (q.x + q.y + q.z <= w + eps));
+    }).flat(1);
+}
+
+
+// slice a cube at the w plane by finding all edge intersections with the plane
+function cubeSlice(w) {
+    return edges.map(([i,j]) => splitEdge(vertices[i], vertices[j], w)).filter(p => p);
+}
+
+
+// generate the SVG container with appropriate scaling
+var svg = d3.select('#animation')
+    .append('svg').attr('width', width).attr('height', height)
+    .append('g')
+        .attr('transform', 'translate(' + width/2 + ',' + height/2 + ') scale(' + scale + ',' + -scale + ')');
+
+// add silhouttes "under" all the grid cubes
+svg.append('g')
+    .classed('silhouettes', true)
+    .selectAll('.silhouette')
+    .data(grid.filter(p => p.x + p.y + p.z == 0))
+  .enter().append('path')
+    .classed('silhouette', true)
+    .attr('transform', gridTransform)
+    .attr('d', hexpath);
+
+// draw grid cubes by rendering their top faces
+var cubes = svg.append('g')
+    .classed('cubes', true)
+    .selectAll('.cube')
+    .data(grid)
+  .enter().append('g')
+    .classed('cube', true)
+    .attr('transform', gridTransform)
+    .selectAll('path')
+    .data(p => faces.map(face => [face, p]))
+  .enter().append('path')
+    .style('fill', ([face, _], i) => d3.interpolateGreys(0.3 + i*0.1))
+    .attr('d', ([face, _]) => projpath(face.map(v => vertices[v])))
+    // restrict to just the w=0 cubes that we'll slice through during animation
+    .filter(([_, p]) => p.x + p.y + p.z == 0);
+
+
+// add a container for the faces created by slicing the w=0 cubes
+// note we have to repeat the transformations in a separate <g> element
+// because SVG doesn't have a notion of z-index other than document order
+var hexcubes = svg.append('g')
+    .classed('cubeslices', true)
+    .selectAll('.cubeslice')
+    .data(grid.filter(d => d.x+d.y+d.z == 0))
+  .enter().append('g')
+    .classed('cubeslice', true)
+    .attr('transform', gridTransform);
+
+// add placeholder paths for the slices themselves, which we'll animate
+var slices = hexcubes
+    .append('path')
+    .classed('slice', true);
+
+// draw outlines around the 2D hexes which outline the projected w=0 cubes
+var hexes = hexcubes
+    .append('path')
+    .classed('hex', true)
+    .attr('d', hexpath)
+    .attr('opacity', 0);
+
+// set up a repeating animation
+function animate() {
+    // redraw the faces of the topmost cubes, clipped at the current w value
+    cubes.transition()
+        .duration(duration)
+        .ease(d3.easeLinear)
+        .attrTween('d', ([face, _]) => {
+            return t => projpath(faceClip(face, wScale(t)))
+        })
+        // repeat the sequence forever
+        .on('end', animate);
+
+    // redraw the new faces created by slicing the topmost cubes in the w plane
+    slices.transition()
+        .duration(duration)
+        .ease(d3.easeLinear)
+        .attrTween('d', function() {
+            return t => projpath(cubeSlice(wScale(t)))
+        });
+
+    // fade the hex outlines in/out periodically
+    hexes.transition()
+        .duration(duration)
+        .ease(d3.easeLinear)
+        .attrTween('opacity', () => oScale)
+}
+animate();
+
+</script>

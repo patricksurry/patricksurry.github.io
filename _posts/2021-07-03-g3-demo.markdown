@@ -1,0 +1,72 @@
+---
+layout: post
+pin: true
+title:  "G3: a flexible framework for steam gauge instrument panels"
+date:   2021-07-03
+thumbnail: gauge.jpg
+tags: g3 gauges dataviz
+---
+
+[G3][g3] is a flexible Javascript framework
+for building steam gauge instrument panels
+that display live external metrics from flight (or other) simulators
+like [X-Plane][xplane] and [Microsoft FS2020][fs2020].
+This demo gives a sense of what you can build:
+
+[g3]: https://github.com/patricksurry/g3
+[xplane]: https://www.x-plane.com/
+[fs2020]: https://www.flightsimulator.com/
+
+<div id='demo'></div>
+
+G3's goal is to provide a lightweight, browser-based solution
+for building steam-gauge control panels using simple hardware atop a
+commodity LCD display, powered by an affordable single-board computer
+like the [Pi][rpi].
+One of my original inspirations was this
+[awesome Cessna setup][cessna-panel].
+G3 might also be useful for interactive data visualizations and dashboards.
+
+[rpi]: https://www.raspberrypi.org/
+[cessna-panel]: https://cessna172sim.allanglen.com/docs/instrument-panel/
+
+The name G3 is a tortured backronym for "generic gauge grammar"&mdash;and
+has an [aircraft connection][gulfstream]&mdash;but
+was mainly chosen in homage to [D3][d3].
+It's part of a quixotic pandemic project to build a
+[DHC-2 Beaver][dhc2] simpit.
+Although there are plenty of alternatives
+for creating instrument panels,
+I decided it would be fun to roll my own based
+on pure Javascript with SVG using D3.
+After several iterations, I ended up very close to
+the pattern suggested by
+[Mike Bostock][mike]
+several years ago in
+[Towards reusable charts][reuse].
+
+[gulfstream]: https://en.wikipedia.org/wiki/Gulfstream_III
+[d3]: https://d3js.org/
+[dhc2]: https://en.wikipedia.org/wiki/De_Havilland_Canada_DHC-2_Beaver
+[mike]: https://bost.ocks.org/mike/
+[reuse]: https://bost.ocks.org/mike/chart/
+
+<script src="https://unpkg.com/@patricksurry/g3/dist/g3-contrib.min.js"></script>
+
+<script>
+g3.panel()
+    .width(960)
+    .height(480)
+    .append(
+        g3.put().x(120).y(120).append(g3.contrib.nav.airspeed.DHC2()),
+        g3.put().x(360).y(120).append(g3.contrib.nav.attitude.generic()),
+        g3.put().x(600).y(120).append(g3.contrib.nav.altitude.generic()),
+        g3.put().x(840).y(120).append(g3.contrib.radionav.VOR.generic()),
+
+        g3.put().x(120).y(360).append(g3.contrib.nav.turnCoordinator.generic()),
+        g3.put().x(360).y(360).append(g3.contrib.nav.heading.generic()),
+        g3.put().x(600).y(360).append(g3.contrib.nav.VSI.generic()),
+        g3.put().x(840).y(360).append(g3.contrib.radionav.ADF.generic()),
+    )
+    ('#demo');
+</script>
