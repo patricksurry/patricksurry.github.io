@@ -1,0 +1,474 @@
+---
+layout: post
+title:  "Eastern Front 1941: Narrative history"
+date: 2022-10-01
+author: ccrawford
+thumbnail: ef1941map.png
+tags: retro games
+---
+
+<!-- markdownlint-disable MD033 -->
+
+[Chris Crawford's][ccwiki] original "narrative history" of his work on
+[Eastern Front 1941][efwiki] is a great read from a general software engineering
+and product management perspective.
+The AI player implementation in 1200 bytes of assembler is mind-blowing.
+That's what hooked me on [porting the game][port].
+
+[efwiki]: https://en.wikipedia.org/wiki/Eastern_Front_(1941)
+[ccwiki]: https://en.wikipedia.org/wiki/Chris_Crawford_(game_designer)
+[port]: https://github.com/patricksurry/eastern-front-1941
+
+> What follows is OCR'd text from scanned PDFs of Chris Crawford's original type-written notes.
+{: .prompt-info }
+
+## NARRATIVE HISTORY
+
+A common misconception among non-programmers is that a program is a
+static product, something that springs complete from the hand of the
+programmer. What they do not realize is that a truly original program like
+EASTERN FRONT 1941 does not leap out of the programmer's mind and into the
+computer. It starts with an inspiration, a vision that sketches the outlines
+broad and clear but leaves the individual brushstrokes undefined. The
+programmer labors long and hard to translate this vision into a cybernetic
+reality. But the process of converting the pastels and soft shades of the
+vision into the hard and sharp lines of machine code inevitably produces
+contradictions between the fine details. As many small ideas crystallize
+into a single whole, mismatches and discord are frequent. The programmer
+flits over the design, rearranging ideas, polishing rough edges, and
+reconciling differences. In this process many of the original ideas are
+warped and twisted until they no longer resemble their original forms. It is
+very easy, on examining a program closely, to unearth many of these
+convoluted elements and conclude that the programmer lacks common sense. In
+truth, the only way to understand a program is to follow its evolution from
+start to finish. I have tried to explain some of the odder aspects of this
+program in terms of historical happenstance. In this essay I will narrate
+the history of the entire project. I hope that this will make the final
+product more understandable.
+
+### ORIGINS
+
+EASTERN FRONT (1941) began as OURRAH POBIEDA in June of 1979. The
+original name is Russian for "Hooray for the Motherland!" and was the Russian
+war cry. It was retained until the last minute; I was finally convinced that
+the simpler name would sell better.
+
+OURRAH POBIEDA was initially conceived as a division-level game of
+combat on the Eastern Front. The emphasis of the design was on the
+operational aspects of combat in that campaign. I wanted to demonstrate the
+problems of handling division-sized units. The design placed heavy emphasis
+on mechanical aspects of warfare. Thus, it had strong logistics and movement
+features. It also had a major subsystem dealing with operational modes. The
+player could place each unit into one of many different modes such as
+movement, assault, reconnaissance in force, probing assault, and so on. Each
+mode had different combinations of movement capabilities, attack strength,
+and defense strength. There was also a provision for the facing of a unit
+that allowed flanking attacks.
+
+I wrote the program in BASIC on a PET computer in May and June of 1979.
+When I got the program up and running on the machine, I quickly realized that
+I had a dog on my hands. The game had many, many flaws. There were good
+ideas in it--the logistics routines, the combat system, and the movement
+system were all very good. But the game as a whole did not work. It was
+dull, confusing, and slow. I wisely consigned all of my work into a file
+folder and started on a new design. Someday, when I had shaken off whatever
+preconceptions were contaminating my mind, I would come back to the game and
+start over with a fresh outlook.
+
+### REBIRTH
+
+Fifteen months passed. I went to work for Atari, programming first on
+the Video Computer System and then on the Home Computer. In September of
+1980 I saw a program written by Ed Rothberg of Atari that finely scrolled the
+text window. It was a short demo that did nothing other than move the
+characters around, but it shouted out its potential. I showed it to several
+other wargame designers and pointed out its implications for our craft. They
+listened politely but did not act on my suggestion that they use the
+capability.
+
+Several weeks later I began exploring the fine scrolling capabilities of
+the machine myself. I took apart Ed's code and wrote a new routine that was
+more useful for me. I then generalized this routine to produce SCRL19.ASM, a
+demonstration scrolling module. This module has been spread around in an
+effort to encourage programmers to use the scrolling. By mid-November I had
+completed SCRL19.ASM and was finishing up another wargame project. I was
+beginning to think about my next project. I decided it was time to pull out
+all the stops and do a monster game, a game with everything. It would be a
+48K disk-based game with fabulous graphics. it seemed obvious that the
+
+Eastern Front was the ideal stage for such a game. I therefore began
+planning this new game. In the meantime, I began converting SCRL19.ASM to
+produce a map of Russia. This map was completed on December 10. It
+impressed many people, but it was only a map; it didn't do anything other
+than scroll.
+
+### DESIGNING A NEW GAME
+
+Game design is art, not engineering. During December I took many long
+walks alone at night, sorting through my thoughts and trying to formulate my
+vision of the game clearly. I sifted through all of my old documents on the
+PET version of OURRAH POBIEDA, trying to glean from that game the essence of
+all that was good and all that was bad. Mostly, I thought about what it
+would be like to play the game. What will go through the head of a person
+playing my game? What will that person experience? What will he think and
+feel?
+
+During all this time I never once put pencil to paper to record my
+thoughts. I deliberately avoided anything that would constrain creative
+flights of fancy. I also fought off the urge to rush the job. I spent four
+weeks just thinking. I didn't want to start designing a game that wasn't
+fully conceived yet.
+
+Then, in January, the vision was clear. I knew (or thought I knew)
+exactly what the game would be like. I wrote a one-page description of the
+game. The original document is reproduced at the end of this essay [below]. You
+will note that it is a surprisingly accurate description of the final product.
+Also note what is specified. The information given represents my judgment of
+the critical design and technical factors that would dominate the development
+of the game. Note especially the importance I attached to human interface
+and graphics. This reflects my belief that computation is never a serious
+problem, but interface is always the primary problem.
+
+<p align="center">
+    <img
+        width=600
+        alt="Eastern Front 1941 specification"
+        src="https://github.com/patricksurry/eastern-front-1941/images/efspec.jpg"
+    >
+</p>
+
+### PLUNGING INTO THE MORASS
+
+I now began the serious task of implementing the design. At first I
+proceeded slowly, cautiously. I documented all steps carefully and wrote
+code conservatively. I didn't want to trap myself with inflexible code at an
+early stage of the game. First I rewrote the map routine, which involved the
+data module and the interrupt module. (I decided at the outset that I would
+need separate modules, as I fully expected the entire program to be too big
+to fit in one module.) As part of this effort I redesigned the display list
+and display list interrupt structure. This gave me a much better display.
+By this time, early February, I was in full gear and was working nights and
+weekends, perhaps 20 hours per week. I made last changes in the character
+sets and nailed down the map contents. Next came the unit displays. I wrote
+the swapping routine and began putting units on the map. They couldn't move
+or do anything, but they sure looked pretty.
+
+In late February I began work on the input routines. So far everything
+had gone in smoothly. There had been a lot of work, but most routines had
+worked properly on the first or second try. My first real headache came when
+I tried to design the input routines. I had decided that most of the game
+would be playable with only the joystick. The player would use the START key
+to begin a move, but otherwise the keyboard was to be avoided. I hung up on
+the problem of cancelling orders. There seemed to be no way to do it with
+the joystick. This caused me great consternation. I finally gave in and
+used the SELECT key for cancelling orders. This may surprise you, for the
+final product uses the space bar and the initial spec clearly states that
+space bar would be used. I didn't want to use the keyboard, so I insisted on
+using the yellow buttons. My playtesters (most notably Rob Zdybel) convinced
+me to go back to the space bar.
+
+My next problem with the input routines arose when I tried to display a
+unit's existing orders. I had no end of problems here. My original idea had
+been to use player-missile graphics to draw some kind of dotted path that
+would show a unit's planned route instantly. Unfortunately, there weren't
+enough players and missiles to do the job properly. It could only be done if
+I used single dots for each square entered. I put the display up on the
+screen and decided that It did not look good enough. So it was back to the
+drawing board. The solution I eventually came up with (after considerable
+creative agony) is the system now used---the moving arrow that shows a unit's
+path. This takes a little longer but the animation effect is nice.
+
+### THE LIGHT AT THE END OF THE TUNNEL
+
+By now it was early March and I paused to consider the pace of the
+effort. I could see how much effort would be needed to complete the task. I
+listed each of the remaining tasks and estimated the amount of time necessary
+for each. I then realized that the program would not be finished until late
+June. This was an unpleasant surprise, for I had been planning all along to
+unveil the game at the ORIGINS wargaming convention over the 4th of July
+weekend. The schedule appeared to give me very little extra time in the
+event of problems. I did not like the looks of it. I resolved to redouble
+my efforts and try to get ahead of the schedule.
+
+### MAINLINE MODULE
+
+With the input routines done it was time to work on the mainline module.
+The very first task was to take care of calendraic functions. I wrote the
+routines to calculate the days and months; this was easy. Next came the tree
+color changes with seasons; this was also easy. The first problem developed
+with the freezing of rivers and swamps during the winter. I was unable to
+devise a simple way of doing this. I plunged into the problem with indecent
+haste and threw together a solution by force of effort. The result was
+impressive, but I'm not sure I did the right thing. It cost me a week of
+effort, no great loss, and a lot of RAM, which at the time seemed
+inconsequential because I was still planning on the game taking 48K of
+memory. Later, when I chose to drop down to 16K, I found myself cramped for
+RAM, and the expenditure of 120 bytes began to look wasteful.
+
+Fortunately, I emerged from these problems unscathed. I was not tired
+yet, the project seemed on track and my morale was still high. Morale is
+important---you can't do great work unless you are up for it.
+
+The next task was movement execution. This went extremely well. I had
+planned on taking two weeks to get units moving properly; as luck would have
+it, the routines were working fine after only one week. I was hot!
+
+### COMBAT ROUTINES
+
+As March ended, I was beginning work on the combat resolution routines.
+I had some severe problems here. My routines were based closely on the
+systems used for the original OURRAH POBEIDA. After some thought, I began to
+uncover serious conceptual problems with this system. A combat system should
+accomplish several things. It should provide for attrition due to the
+intensity of combat. It should also provide for the collapse of a unit's
+coherence and its subsequent retreat. The routines I had were too bloody.
+They killed many troops by attrition but did not retreat units readily. I
+analyzed them closely and concluded that the heart of the problem lay in the
+fact that combat was completely resolved in a single battle. From this I
+came up with the idea of the extended battle covering many movement subturns
+during the week. By stretching out the battle in this way I was able to
+solve the problem and achieve a much better combat system. I still retained
+the central idea of the earlier system, which broke a unit's strength up into
+muster strength and combat strength.
+
+### ARTIFICIAL INTELLIGENCE
+
+In early April I turned to the last major module of the project: the
+artificial intelligence routines. This module frightened me, for I was
+unsure how to handle it. Looking back, I cannot believe that I invested so
+much time in this project in the blithe expectation that the artificial
+intelligence routines would work out properly. I threw myself into them with
+naive confidence. I carefully listed all of the factors that I wanted the
+Russian player to consider. Then I prepared a flowchart for the sequence of
+computations. This flowchart was subsequently rewritten many times as I
+changed the design.
+
+My biggest problems came with the method of analyzing the robustness of
+the Russian line. My first approach was based on the original OURRAH POBEIDA
+method. I started at one end of the line and swept down the line looking for
+holes. When a hole was found I marked it and jumped onward to the other side
+of the hole. When the line was fully traced I sent reinforcements to the
+holes and weak spots in the line. This worked in OURRAH POBEIDA but would
+not work in the new program. The Russian line in the new program would be
+far more ragged than in the original game. In some places, the holes would
+be bigger than the line. In such cases, the algorithm would almost certainly
+break down.
+
+A new algorithm was required. After many false starts, I came up with
+the current scheme, which broke the line up into small segments 5 squares
+wide. This 5-square chunk is then applied to each unit in the Russian army,
+providing a kind of moving average to smooth the line and bind together the
+different units in the fine. I am very proud of this design, for it is quite
+flexible and powerful in its ability to analyze a line structure. An
+interesting aspect of this design is that I originally designed it to handle
+a smaller segment only three squares wide. After the code had been written,
+entered, and partially debugged I decided that it would work better with a
+5-square width. I modified the code to handle the new width in a few days.
+The transition was really quite clean. This indicates that I wrote the
+original code very well, for the ease with which code can be rewritten is a
+good measure of its quality.
+
+### FIRST STARTUP
+
+It was now mid-May. Six months had passed since I had begun the first
+efforts on the game. One evening, rather late, I finished work on the
+artificial intelligence routine and prepared to actually play the game for
+the first time. Many, many times I had put the game up to test the
+performance of the code, but this was the first time I was bringing the game
+up solely to assess the overall design. Within ten minutes I knew I had a
+turkey on my hands. The game was dull and boring, It took too much time to
+play, it didn't seem to hang together conceptually, and the Russians played a
+very stupid game.
+
+### THE CRISIS
+
+I remember that night very well. I shut off the machine and went for a
+long walk. It was time to do some hard thinking. The first question was,
+can the game be salvaged? Are the problems with this game superficial or
+fundamental to the design? I decided that the game suffered from four
+problems: There were too many units for the human to control. The game
+would require far too long to play. The game was a simple slugfest with
+little opportunity for interesting ploys for the German. The Russians were
+too stupid. The second question I had to answer was, should I try to
+maintain my schedule, or should I postpone the game and redesign it?
+
+That was a long night. One thing kept my faith: my egotism. Most good
+programmers are egomaniacs, and I am no exception. When the program looked
+hopeless, and the problems seemed insurmountable, one thing kept me
+going---the absolute certainty that I was so brilliant that I could think up
+a solution to any problem. Deep down inside, every good programmer knows
+that the computer will do almost anything if only it is programmed properly.
+The battle is not between the programmer and the recalcitrant computer; it is
+between the programmer's will and his own stupidity. Only the most
+egotistical of programmers refuses to listen to the "I can't do it" and
+presses on to do the things which neither he nor anybody else thought
+possible. But in so doing, he faces many lonely nights staring at the
+ceiling, wondering if maybe this time he has finally bitten off more than he
+can chew.
+
+I threw myself at the task of redesigning the program. First, I greatly
+reduced the scale of the program. I had intended the game to cover the
+entire campaign in the east from 1941 to 1945. I slashed it down to only the
+first year. That suddenly reduced the projected playing time from a
+ridiculous 12 hours to a more reasonable 3 hours. I then drastically
+transformed the entire game by introducing zones of control. Before then
+units were free to move through gaps in the line at full speed. This single
+change solved a multitude of problems. First, it allowed me to greatly
+reduce the unit count on both sides. One unit could control far more
+territory now, so fewer units were necessary. With fewer units, both players
+could plan their moves more quickly. Second, Russian stupidity was suddenly
+less important. If the Russians left small holes in the line, they would be
+covered by zones of control. Third, it made encirclements much easier to
+execute, for large Russian forces could be trapped with relatively few German
+armored units.
+
+My third major change to the game design was the inclusion of logistics.
+I had meant to have supply considerations all along, but I had not gotten
+around to it until this time. Now I put it in. This alone made a big change
+in the game, for it permitted the German to cripple Russian units with
+movement instead of combat. Indeed, the encirclement to cut off supplies is
+the central German maneuver of the entire game.
+
+It was about this time that I also committed to producing a game that
+would run on a 16K system. I had suspected since April that the entire
+program would indeed fit into 16K but I did not want to constrain myself, so
+I continued developing code with little thought to its size. Yet it is hard
+to deny one's upbringing. I had learned micros on a KIM with only 1K of RAM,
+later expanded to 5K. I had written many of my early programs on a PET with
+8K of RAM, later 16K. I had written programs at Atari to run in 16K. My
+thoughts were structured around a 16K regime. When the first version of the
+program ran in May, it fit in almost exactly 16K. I never took anything out
+to meet the 16K requirement; I simply committed to maintaining the current
+size.
+
+### FRANTIC JUNE
+
+During the first two weeks of June I worked like a madman to implement
+all of these ideas. The program's structure went to hell during this time.
+1 was confident of what I was doling, and was willing to trade structure for
+time. I had all the changes up and running by mid-June. It was then that I
+released the first test version to my playtesters. I also began the huge
+task of polishing the game, cleaning out the quirks and oddities. This
+consumed my time right up to the ORIGINS convention on July 3-5. We showed
+the game to the world then, and it made a favorable impression on those who
+saw it. The version shown there was version 272. It was a complete game,
+and a playable game, and even an enjoyable game. It was not yet ready for
+release.
+
+### THE POLISHING STAGES
+
+Two of the most critical stages in the development of a program are the
+design stage and the polishing stage. In the former, the programmer is
+tempted to plunge ahead without properly thinking through what he wants to
+achieve. In the latter, the programmer is exhausted after a major-effort to
+complete the program. The program is now operational and could be released;
+indeed, people are probably begging for it immediately. The temptation to
+release it is very strong. The good programmer will spurn the temptation and
+continue polishing his creation until he knows that it is ready to be
+released.
+
+Polishing occupied my attentions for six weeks. I playtested the game
+countless times, recording events that I didn't like, testing the flow of the
+game, and above all looking for bugs. I found bugs, too. One by one, I
+expurgated them. I rewrote the zone of control routine to speed it up and
+take less memory. I made numerous adjustments In the artificial intelligence
+routines to make the Russians play better. Most of my efforts were directed
+to the timing and placement of reinforcements. I found that the game was
+balanced on a razor-edge. A good player would have victory within his reach
+right up through December, but then the arrival of a large block of Russian
+reinforcements would dash his chances. I spent a great deal of time juggling
+reinforcements to get the game tightly balanced.
+
+During this time playtesters were making their own suggestions for the
+game. Playtesters are difficult to use properly. At least 90 percent of the
+suggestions they make are useless or stupid. This is because they do not
+share the vision that the designer has, so they try to take the game in very
+different directions. The tremendous value of playtesters lies in that small
+10 percent that represents valuable ideas. No designer can think of
+everything. Every designer will build personal quirks into a game that can
+only hurt the design. The playtesters will catch these. The good designer
+must have the courage to reject the bad 90 percent, and the wisdom to accept
+the good 10 percent. It's a tough business.
+
+### DELIVERY AND AFTERMATH
+
+I delivered the final product to Dale Yocum at the Atari Program
+Exchange around the 20th of August. It was the 317th version of the program.
+The program went on sale 10 days later. It has generated favorable
+responses. I was not able to embark on a new project for ten weeks; I was
+completely burned out. I do not regret burning myself out in this way;
+anything less would not have been worth the effort.
+
+## DESIGNER'S NOTES
+
+There are a number of complaints levelled against this game design which
+emerged during playtesting. The first complaint ts that the logistics rules
+are wrong. The random element of supply rankles some players. Supply on the
+Eastern Front was not a certain thing. Sometimes the supplies got through,
+sometimes they didn't. If a unit has a straight path of supply, it will
+certainly get supplies. Probability enters the picture in only two
+situations: when the supply path becomes twisted and during winter.
+
+Another complaint levelled against the game concerns the aggravation of
+traffic jams. This is particularly irritating when two units attack a
+surrounded unit. Typically they destroy their victim but crash into each
+other. This prevents any further motion until their paths are straightened
+out. After much consideration I decided to leave the traffic jams [n.
+Traffic Jams were very much a part of Eastern Front combat. Besides, the
+problem can be minimized with careful planning. For example, if you have a
+Russian un!t surrounded from two sides, It is quite possible to give orders
+that will work. The diagram illustrates the solution:
+
+<p align="center">
+    <img
+        width=192 alt="Eastern Front 1941 traffic jam"
+        src="https://github.com/patricksurry/eastern-front-1941/images/apxtrjam.png"
+    >
+</p>
+
+Having addressed the most obvious of the game's flaws I now turn to the
+pleasant task of discussing the game's strong points. The graphics elements
+are the most obvious. They are also the aspect of the game that I can take
+least credit for. Designing graphics on this computer is like riding a
+spirited horse---you loosen the reins and let it fly. Indeed, this game does
+not utilize all of the graphics capabilities of the machine. The game does
+not make use of one of the players, al! of the missiles, player/playfield
+priorities and collision detection, four-color character sets, real-time
+color register indirection, and dynamic display lists. Thus, it makes use of
+only about 75 per cent of the graphics capability inherent in the machine.
+Much learning lies in front of us before we can say that we have mastered
+this computer.
+
+I take great pride in the input/output structure of this game. The
+joystick, graphics, and sound are integrated into a smoothly operating
+System. I spent nearly a month designing this arrangement, and another month
+implementing it. I wanted to design a game playable with only the joystick.
+I failed; in the end there were those three buttons (START, OPTION, and SPACE
+BAR) that the user must also use to play the game. Those were painful
+concessions. Other game features were abandoned when I realized they could
+not be implemented without recourse to more keystrokes. I refuse to design a
+human engineering monstrosity.
+
+The feature I am most proud of is the artificial intelligence the game
+uses. It is a trifle presumptuous of me to call it artificial intelligence,
+for the computer does not learn from its mistakes nor does it adjust its
+strategies in direct response to the human's move. However, it does analyze
+its position, it can recognize danger and opportunity, and it can react
+accordingly. It avoids (but cannot prevent) traffic jams. It also
+recognizes the combat value of terrain and plans its moves accordingly. The
+computer plans [ts moves while the human works on his own moves; this is
+accomplished with a vertical blank interrupt routine that separates the two
+processes. in effect, the computer is executing a technique called
+multitasking. The technique was difficult to implement but the result is
+well worth the effort. The other nifty aspect of the intelligence algorithms
+is that they are convergent approximations. The computer starts off with a
+rough guess of his best move, then refines it a little, then a little more,
+then a little more, and so on until the human finally presses the START key.
+Because of this the computer is always ready to begin a move, and yet will
+take the time to plan a move carefully if the human will let him. The human
+is never forced to wait for the computer.
+
+This final version of EASTERN FRONT 1941 is the 317th version of the
+program. It took me eight months to complete. I am glad it's finished.
+
+> (signed) I AM TOO! — HIS WIFE
