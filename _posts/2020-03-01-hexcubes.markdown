@@ -8,7 +8,7 @@ tags: hexagons dataviz
 
 This visualization was inspired by Amit Patel's diagram illustrating [cube coordinates][coords]. That diagram initially confused me because the edges of the grid cubes centered on integer coordinates in the plane x + y + z = 0 don't themselves lie in the plane, so it seemed like the animation "cheated" at the end by dissolving to planar hexagons.  But of course the point is just that the silhouettes of those cubes form a perfect hexagonal tiling of the plane.  That tiling is highlighted as red hexagons here.
 
-[coords]: (https://www.redblobgames.com/grids/hexagons/#coordinates-cube)
+[coords]: https://www.redblobgames.com/grids/hexagons/#coordinates-cube
 
 <div id='animation'></div>
 
