@@ -4,7 +4,7 @@ title:  "Hand drawn circles"
 date:   2014-04-19
 thumbnail: handdrawn-circles.png
 math: true
-tags: math dataviz
+tags: math dataviz d3
 ---
 
 <!-- markdownlint-disable MD033 -->
@@ -22,7 +22,7 @@ based on [this approximation to a perfect circle][approx].
 {: .prompt-info }
 
 [gist]: https://gist.github.com/patricksurry/11087975
-[clone]: https://blocks.roadtolarissa.com/patricksurry/11087975
+[clone]: {{site.blocks_url}}/patricksurry/11087975
 
 <svg id='perturb0' width='100' height='100' viewBox="-1.5 -1.5 3 3"></svg>
 

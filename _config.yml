@@ -80,6 +80,9 @@ img_cdn:
 # the avatar on sidebar, support local or CORS resources
 avatar: /assets/img/penguin.jpg
 
+# where to serve bl.ocks.org gists
+blocks_url: https://blocks.roadtolarissa.com
+
 # boolean type, the global switch for ToC in posts.
 toc: true
 

@@ -10,6 +10,10 @@ Based on the Chirpy Starter, see the [theme's docs][starter].
 
 [starter]: https://github.com/cotes2020/jekyll-theme-chirpy#documentation
 
+Add [Emoji support][emoji]?
+
+[emoji]: https://www.fabriziomusacchio.com/blog/2021-08-16-emojis_for_Jekyll/
+
 TODO
 ---
 
@@ -23,26 +27,18 @@ TODO
 
 - litebrite
 
+- other D3 examples?
+
 - universe of [flight data][spiralviz]
 
 [spiralviz]: https://docs.google.com/document/d1EyWhDc_M8hnzYk9AQ0hb_boOlNd8Ngku4Ge4ZX002z4/edit
 
 - softclip article
 
-- other D3 examples?
-
 - aide-memoire
-
-- simpleheat [gist][simpleheat]
-
-[simpleheat]: https://gist.github.com/patricksurry/803a131d4c34fde54b9fbb074341daa5
 
 - calendar viz (rec-feed?)
 
-- geo / cyclic features article
+- geo / cyclic features articles
 
 - list ranking article
-
-- roll & pan mercator [gist][rollpan]
-
-[rollpan]: https://gist.github.com/patricksurry/6621971
