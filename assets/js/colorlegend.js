@@ -4,10 +4,10 @@
 /*
  * colorlegend
  *
- * This script can be used to draw a color legend for a 
- * [d3.js scale](https://github.com/mbostock/d3/wiki/Scales) 
- * on a specified html div element. 
- * [d3.js](http://mbostock.github.com/d3/) is required.
+ * This script can be used to draw a color legend for a
+ * [d3.js scale](https://github.com/mbostock/d3/wiki/Scales)
+ * on a specified html div element.
+ * [d3.js](https://mbostock.github.com/d3/) is required.
  *
  */
 
@@ -36,7 +36,7 @@ var colorlegend = function (target, scale, type, options) {
     , boxSpacing = (type === 'ordinal' || type === 'threshold') ? 3 : 0 // spacing between boxes
     , titlePadding = (title && boxSpacing) ? 11 : 0
     , domain = scale.domain()
-    , range = scale.range()    
+    , range = scale.range()
     , i = 0;
 
   // check for valid input - 'quantize' not included
@@ -71,10 +71,10 @@ var colorlegend = function (target, scale, type, options) {
   if (fill || w < (boxWidth + boxSpacing) * colors.length + padding[1] + padding[3]) {
     boxWidth = (w - padding[1] - padding[3] - (boxSpacing * colors.length)) / colors.length;
   }
-  if (fill || h < boxHeight + padding[0] + padding[2] + titlePadding) {  
-    boxHeight = h - padding[0] - padding[2] - titlePadding;    
+  if (fill || h < boxHeight + padding[0] + padding[2] + titlePadding) {
+    boxHeight = h - padding[0] - padding[2] - titlePadding;
   }
-*/  
+*/
   // set up the legend graphics context
   var legend = target
     /*d3.select(target)
@@ -86,7 +86,7 @@ var colorlegend = function (target, scale, type, options) {
       .attr('transform', 'translate(' + x + ',' + y + ')')
       .style('font-size', '11px')
       .style('fill', '#666');
-      
+
   var legendBoxes = legend.selectAll('g.legend')
       .data(colors)
     .enter().append('g');
@@ -116,20 +116,20 @@ var colorlegend = function (target, scale, type, options) {
         else {
           if (i === 0)
             return fmt(domain[0]);
-          if (i === colors.length - 1) 
+          if (i === colors.length - 1)
             return fmt(domain[domain.length - 1]);
         }
       });
 
   // the colors, each color is drawn as a rectangle
   legendBoxes.append('rect')
-      .attr('x', function (d, i) { 
+      .attr('x', function (d, i) {
         return i * (boxWidth + boxSpacing);
       })
       .attr('width', boxWidth)
       .attr('height', boxHeight)
       .style('fill', function (d, i) { return colors[i]; });
-  
+
   // show a title in center of legend (bottom)
   if (title) {
     legend.append('text')
@@ -141,6 +141,6 @@ var colorlegend = function (target, scale, type, options) {
         .style('pointer-events', 'none')
         .text(title);
   }
-    
+
   return this;
 };

@@ -30,6 +30,7 @@ reminiscent of the game of *Risk*.
   font-family: 'Architects Daughter', cursive;
   font-size: 16pt;
   margin: 0;
+  background-color: lavender;
 }
 svg {
   border:  1px solid #666;
@@ -55,8 +56,8 @@ text {
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
-var width = 1024,
-    height = 600;
+var width = 768,
+    height = 450;
 
 var svg = d3.select("#demo").append("svg")
     .attr("width", width)

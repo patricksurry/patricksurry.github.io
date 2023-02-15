@@ -51,7 +51,9 @@ layout: page
     <!-- PDS: thumbnails-->
     {% if post.thumbnail %}
     <div class="post-thumbnail">
+      <a href="{{ post.url | relative_url }}">
         <img alt="{{ post.thumbnail }} thumbnail" src="{{ '/assets/img/thumbs/' | append: post.thumbnail | relative_url }}">
+      </a>
     </div>
     {% endif %}
 

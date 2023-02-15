@@ -21,9 +21,6 @@ TODO
 
 - EF common solider; cartridge notes
 
-- flying arcs [gist][arcs]
-[arcs]: https://gist.github.com/patricksurry/5735048
-
 - Iquique
 
 - pydisass6502
@@ -34,10 +31,9 @@ TODO
 
 - pysimconnect
 
-- [litebrite][litebrite]
-[litebrite]: https://github.com/patrick_hopper/litebrite-flights
-
-- other D3 examples?
+- hopper/D3
+    - night+day
+    - isocost
 
 - universe of [flight data][spiralviz]
 
