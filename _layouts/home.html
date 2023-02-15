@@ -38,88 +38,62 @@ layout: page
   {% endfor %}
 {% endif %}
 
-<!-- PDS: thumbnails-->
-<style>
-#sidebar #avatar>a { border: none !important}
-
-.post-preview {
-   overflow: auto;
-}
-.post-thumbnail {
-    float: left;
-    margin-top: 2.5rem;
-    margin-right: 30px;
-    width: 120px;
-    height: 90px;
-    border-radius: 10px;
-    overflow: hidden;
-}
-.post-thumbnail img {
-    transition: all 0.3s;
-    width: 120px;
-    height: 90px;
-    object-fit: cover;
-    transform: scale(1);
-}
-.post-thumbnail:hover img {
-    transform: scale(1.1);
-}
-</style>
-
 <div id="post-list">
 
 {% for post in posts %}
 
-<!-- PDS: thumbnails-->
-{% if post.thumbnail %}
-<div class="post-thumbnail">
-    <img alt="{{ post.thumbnail }} thumbnail" src="{{ '/assets/img/thumbs/' | append: post.thumbnail | relative_url }}">
-</div>
-{% endif %}
-
 <div class="post-preview">
 
-    <h1>
-      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-    </h1>
-
-    <div class="post-content">
-      <p>
-        {% include no-linenos.html content=post.content %}
-        {{ content | markdownify | strip_html | truncate: 200 | escape }}
-      </p>
+  <h1>
+    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+  </h1>
+  <div class="post-listitem">
+    <!-- PDS: thumbnails-->
+    {% if post.thumbnail %}
+    <div class="post-thumbnail">
+        <img alt="{{ post.thumbnail }} thumbnail" src="{{ '/assets/img/thumbs/' | append: post.thumbnail | relative_url }}">
     </div>
+    {% endif %}
 
-    <div class="post-meta text-muted d-flex">
-      <div class="mr-auto">
+    <div class="post-item">
+      <div class="post-content">
+        <p>
+          {% include no-linenos.html content=post.excerpt %}
+          {{ content | markdownify | strip_html | truncate: 256 | escape }}
+        </p>
+      </div>
 
-        <!-- posted date -->
-        <i class="far fa-calendar fa-fw"></i>
-        {% include datetime.html date=post.date %}
+      <div class="post-meta text-muted d-flex">
+        <div class="mr-auto">
 
-        <!-- categories -->
-        {% if post.categories.size > 0 %}
-          <i class="far fa-folder-open fa-fw"></i>
-          <span>
-          {% for category in post.categories %}
-            {{ category }}
-            {%- unless forloop.last -%},{%- endunless -%}
-          {% endfor %}
-          </span>
+          <!-- posted date -->
+          <i class="far fa-calendar fa-fw"></i>
+          {% include datetime.html date=post.date %}
+
+          <!-- categories -->
+          {% if post.categories.size > 0 %}
+            <i class="far fa-folder-open fa-fw"></i>
+            <span>
+            {% for category in post.categories %}
+              {{ category }}
+              {%- unless forloop.last -%},{%- endunless -%}
+            {% endfor %}
+            </span>
+          {% endif %}
+
+        </div>
+
+        {% if post.pin %}
+        <div class="pin">
+          <i class="fas fa-thumbtack fa-fw"></i>
+          <span>{{ site.data.locales[site.lang].post.pin_prompt }}</span>
+        </div>
         {% endif %}
 
-      </div>
-
-      {% if post.pin %}
-      <div class="pin">
-        <i class="fas fa-thumbtack fa-fw"></i>
-        <span>{{ site.data.locales[site.lang].post.pin_prompt }}</span>
-      </div>
-      {% endif %}
-
-    </div> <!-- .post-meta -->
-
-  </div> <!-- .post-review -->
+      </div> <!-- .post-meta -->
+    </div> <!-- .post-item -->
+  </div> <!-- .post-listitem -->
+</div> <!-- .post-preview -->
 
 {% endfor %}
 

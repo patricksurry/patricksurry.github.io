@@ -7,11 +7,9 @@ math: true
 tags: math dataviz d3
 ---
 
-<!-- markdownlint-disable MD033 -->
-
 I wanted to draw a month-at-a-glance calendar page with several days circled,
 but drawing perfect circles looked odd,
-so I looked for a way to imitiate hand-drawn (imperfect) circles.
+so I looked for a way to imitate hand-drawn (imperfect) circles.
 **TL;DR**
 Cubic Bézier segments do the trick,
 based on [this approximation to a perfect circle][approx].
@@ -23,6 +21,8 @@ based on [this approximation to a perfect circle][approx].
 
 [gist]: https://gist.github.com/patricksurry/11087975
 [clone]: {{site.blocks_url}}/patricksurry/11087975
+
+<!-- markdownlint-disable MD033 -->
 
 <svg id='perturb0' width='100' height='100' viewBox="-1.5 -1.5 3 3"></svg>
 
@@ -37,8 +37,8 @@ but that would be an easy modification.
 </svg>
 
 I started from this [nice approximation][approx] of a perfect circle based on
-cubic B&eacute;zier segments, where they show that a good approximation
-to a quarter circle of unit radius is a cubic B&eacute;zier curve with control points
+cubic Bézier segments, where they show that a good approximation
+to a quarter circle of unit radius is a cubic Bézier curve with control points
 $P_0 = (0, 1)$, $P_1 = (c, 1)$, $P_2 = (1, c)$, $P_3 = (1, 0)$
 where $c = 0.551915024494$.
 For example we can use this SVG, with the control points shown in red: <code>&lt;path d="M0,1 C0.552,1 1,0.552 1,0"/></code>
@@ -124,6 +124,8 @@ Squash orientation (0-360)
     </span>
 
 <div id="gallery"></div>
+
+<!-- markdownlint-disable MD018 MD037 -->
 
 <style>
 input {

@@ -6,8 +6,6 @@ thumbnail: geoheat.png
 tags: d3 dataviz
 ---
 
-<!-- markdownlint-disable MD033 -->
-
 Illustrates how to use Vladimir Agafonkin's clever [simpleheat JS library][simpleheat] to overlay a heatmap of Hopper search destinations on a D3 map.
 
 [simpleheat]: https://github.com/mourner/simpleheat
@@ -19,6 +17,8 @@ Just for fun we use a separate svg layer 'under' the canvas to display the map, 
 
 [gist]: https://gist.github.com/patricksurry/803a131d4c34fde54b9fbb074341daa5
 [clone]: {{site.blocks_url}}/patricksurry/803a131d4c34fde54b9fbb074341daa5
+
+<!-- markdownlint-disable MD033 MD018 -->
 
 <div>
 <div id='container'></div>

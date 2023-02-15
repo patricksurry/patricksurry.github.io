@@ -6,8 +6,6 @@ thumbnail: speedmaster.png
 tags: g3 gauges dataviz
 ---
 
-<!-- markdownlint-disable MD033 -->
-
 Did I mention I got obsessed with gauges?
 I reconstructed the iconic [Omega Speedmaster watch][speedmaster]
 using my [G3][g3] toolkit as an illustration
@@ -15,6 +13,8 @@ of its flexibility to create complex, working gauges that look good.
 
 [g3]: https://github.com/patricksurry/g3
 [speedmaster]: https://en.wikipedia.org/wiki/Omega_Speedmaster
+
+<!-- markdownlint-disable MD011 MD033 -->
 
 <div id='demo'></div>
 

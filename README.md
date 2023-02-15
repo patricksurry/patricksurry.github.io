@@ -19,13 +19,23 @@ TODO
 
 - gospar curve
 
+- EF common solider; cartridge notes
+
+- flying arcs [gist][arcs]
+[arcs]: https://gist.github.com/patricksurry/5735048
+
+- Iquique
+
 - pydisass6502
 
 - codecs
 
+- json-payload-chart
+
 - pysimconnect
 
-- litebrite
+- [litebrite][litebrite]
+[litebrite]: https://github.com/patrick_hopper/litebrite-flights
 
 - other D3 examples?
 

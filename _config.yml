@@ -21,11 +21,11 @@ timezone: America/Toronto
 
 title: Abracadata
 
-tagline: "Math, data, viz, making: magic."   # it will display as the sub-title
+tagline: "Math, dataviz, making: magic."   # it will display as the sub-title
 
 description: >-                        # used by seo meta and the atom feed
      A random walk through some of my passing obsessions
-     with mathematics, data science, scientific visualizaton amd making things.
+     with mathematics, data science, scientific visualization amd making things.
 
 # fill in the protocol & hostname for your site, e.g., 'https://username.github.io'
 url: https://github.com/patricksurry/patricksurry.github.io
@@ -82,6 +82,8 @@ avatar: /assets/img/penguin.jpg
 
 # where to serve bl.ocks.org gists
 blocks_url: https://blocks.roadtolarissa.com
+
+excerpt_separator: <!--more-->
 
 # boolean type, the global switch for ToC in posts.
 toc: true
