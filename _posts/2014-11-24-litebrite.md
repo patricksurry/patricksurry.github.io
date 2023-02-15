@@ -95,7 +95,7 @@ Trips in the past are greyed out as shopping date exceeds departure date.
 }
 </style>
 
-<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script src="/assets/js/colorlegend.js"></script>
 <script>
 

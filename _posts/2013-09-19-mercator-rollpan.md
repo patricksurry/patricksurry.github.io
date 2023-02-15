@@ -19,8 +19,8 @@ Drag left-right to rotate projection cylinder, and up-down to translate, clamped
 
 <div id='demo'></div>
 
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://d3js.org/topojson.v1.min.js"></script>
 <style>
 svg {
   background-color: lavender;

@@ -10,7 +10,7 @@ Adapted from [this][source], to avoid the second projection and make flying arc 
 Because the 'sky' projection is just a scaled up version of the original one, the projection of a sky point in canvas coords can be calculated by simply scaling the ground projection point along the vector from the origin.
 Another improvement(?) might be to avoid the swoosh/interpolate function by doing this same trick directly on the stream of points that comes from the normal projection path function.
 
-[source]: http://bl.ocks.org/dwtkns/4973620
+[source]: https://bl.ocks.org/dwtkns/4973620
 
 > This was originally a [gist][gist] hosted at bl.ocks.org, which seems dead now. This [clone][clone] might still work.
 {: .prompt-info }
@@ -54,9 +54,9 @@ Another improvement(?) might be to avoid the swoosh/interpolate function by doin
 }
 </style>
 
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://d3js.org/queue.v1.min.js"></script>
-<script src="http://d3js.org/topojson.v0.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://d3js.org/queue.v1.min.js"></script>
+<script src="https://d3js.org/topojson.v0.min.js"></script>
 <script>
 d3.select(window)
     .on("mousemove", mousemove)
@@ -265,7 +265,7 @@ function location_along_arc(start, end, loc) {
   return interpolator(loc)
 }
 
-// modified from http://bl.ocks.org/1392560
+// modified from https://bl.ocks.org/1392560
 var m0, o0;
 function mousedown() {
   m0 = [d3.event.pageX, d3.event.pageY];

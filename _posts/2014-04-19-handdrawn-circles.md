@@ -171,8 +171,8 @@ circle.reference {
   fill: none;
 }
 </style>
-<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script charset="utf-8">
 function circlePath(δr_min,δr_max, θ0_min, θ0_max, δθ_min,δθ_max) {
     var c = 0.551915024494,

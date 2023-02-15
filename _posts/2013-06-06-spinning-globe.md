@@ -29,7 +29,7 @@ The annotated javascript implementation is repeated below.
 
 Compare with the [original example][original] I started from and see what happens when you first rotate the globe so the north pole is approximately facing you. Subsequent trackball movements then become completely non-intuitive.  You can reproduce the same behavior in the original source here by uncommenting one of the three behaviors in the mousemove() routine.
 
-[original]: http://mbostock.github.io/d3/talk/20111018/azimuthal.html
+[original]: https://mbostock.github.io/d3/talk/20111018/azimuthal.html
 
 <!-- markdownlint-disable MD018 MD037 MD052 -->
 
@@ -43,8 +43,8 @@ Compare with the [original example][original] I started from and see what happen
     stroke: #333;
 }
 </style>
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://d3js.org/topojson.v1.min.js"></script>
 <script>
 var radius = 250;
 
@@ -77,7 +77,7 @@ d3.json("/assets/data/world-countries.json", function(collection) {
 });
 
 function trackballAngles(pt) {
-  // based on http://www.opengl.org/wiki/Trackball
+  // based on https://www.opengl.org/wiki/Trackball
   // given a click at (x,y) in canvas coords on the globe (trackball),
   // calculate the spherical coordianates for the point as a rotation around
   // the vertical and horizontal axes
@@ -207,7 +207,7 @@ function mousemove() {
     // Improved behavior over original example
     //o1 = [o0[0] + (m1[0] - m0[0]), o0[1] + (m1[1] - m0[1])];
 
-    // Original example from http://mbostock.github.io/d3/talk/20111018/azimuthal.html
+    // Original example from https://mbostock.github.io/d3/talk/20111018/azimuthal.html
     // o1 = [o0[0] - (m0[0] - m1[0]) / 8, o0[1] - (m1[1] - m0[1]) / 8];
 
     // move to the updated rotation
@@ -234,7 +234,7 @@ function mouseup() {
 
 ```js
 function trackballAngles(pt) {
-  // based on http://www.opengl.org/wiki/Trackball
+  // based on https://www.opengl.org/wiki/Trackball
   // given a click at (x,y) in canvas coords on the globe (trackball),
   // calculate the spherical coordianates for the point as a rotation around
   // the vertical and horizontal axes
@@ -364,7 +364,7 @@ function mousemove() {
     // Improved behavior over original example
     //o1 = [o0[0] + (m1[0] - m0[0]), o0[1] + (m1[1] - m0[1])];
 
-    // Original example from http://mbostock.github.io/d3/talk/20111018/azimuthal.html
+    // Original example from https://mbostock.github.io/d3/talk/20111018/azimuthal.html
     // o1 = [o0[0] - (m0[0] - m1[0]) / 8, o0[1] - (m1[1] - m0[1]) / 8];
 
     // move to the updated rotation
