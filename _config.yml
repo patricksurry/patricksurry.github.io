@@ -177,7 +177,7 @@ compress_html:
   comments: all
   endings: all
   profile: false
-  blanklines: false
+  blanklines: true      # otherwise // comments in scripts break HTML
   ignore:
     envs: [development]
 

@@ -14,6 +14,14 @@ Add [Emoji support][emoji]?
 
 [emoji]: https://www.fabriziomusacchio.com/blog/2021-08-16-emojis_for_Jekyll/
 
+For local testing:
+
+    bundle exec htmlproofer _site --check-html --allow_hash_href
+
+Note default [compress_html][compress_html] settings break scripts if they contain //-style comments so currently switched to blanklines mode only.
+
+[compress_html]: http://jch.penibelst.de/
+
 TODO
 ---
 
@@ -48,3 +56,4 @@ TODO
 - geo / cyclic features articles
 
 - list ranking article
+
