@@ -41,3 +41,9 @@ $tab-count: {{ site.tabs | size | plus: 1 }}; // plus 1 for home tab
 .post-thumbnail:hover img {
     transform: scale(1.1);
 }
+
+.caption {
+    font-style: italic;
+    text-align: justify;
+    margin: 0 10%;
+}

@@ -1,31 +1,38 @@
 Abracadata
 ===
 
-A collection of random blog postings about things I find interested.
+A collection of random blog postings about things I find interesting.
+Based on the Chirpy Starter, see the [theme's docs][starter].
 Served with jekyll on at [patricksurry.github.io][home].
+For local development [use][usage]:
+
+    bundle exec jekyll s --drafts
 
 [home]: https://github.com/patricksurry/patricksurry.github.io
-
-Based on the Chirpy Starter, see the [theme's docs][starter].
-
 [starter]: https://github.com/cotes2020/jekyll-theme-chirpy#documentation
+[usage]: https://jekyllrb.com/docs/usage/
 
-Add [Emoji support][emoji]?
-
-[emoji]: https://www.fabriziomusacchio.com/blog/2021-08-16-emojis_for_Jekyll/
-
-For local testing:
+For local link testing:
 
     bundle exec htmlproofer _site --check-html --allow_hash_href
 
-Note default [compress_html][compress_html] settings break scripts if they contain //-style comments so currently switched to blanklines mode only.
+Note the default [compress_html][compress_html] settings breaks scripts
+if they contain `//`-style comments so switched to `blanklines` mode.
 
 [compress_html]: http://jch.penibelst.de/
 
 TODO
 ---
 
+- Add [Emoji support][emoji]?
+
+[emoji]: https://www.fabriziomusacchio.com/blog/2021-08-16-emojis_for_Jekyll/
+
 - gospar curve
+
+- quadsnake https://math.stackexchange.com/questions/4638713/is-there-an-analogue-of-the-gosper-flowsnake-on-the-cartesian-lattice/4642255#4642255
+
+diagram https://docs.google.com/drawings/d/1HJgmXJP0U6lhY3hBPxyXK26HtawpgGHGX4x_1uuhIzc/edit
 
 - EF common solider; cartridge notes
 
@@ -56,4 +63,3 @@ TODO
 - geo / cyclic features articles
 
 - list ranking article
-
