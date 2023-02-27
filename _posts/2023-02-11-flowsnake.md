@@ -325,6 +325,37 @@ Phew!
 
 [negativebase]: https://en.wikipedia.org/wiki/Negative_base
 
+<!--
+[-3, -2, -1, 0, 1, 2, 3, 10, 100, 1000].forEach(i => {
+    const g7 = inttog7(-i),
+        shm = g7toshm(g7),
+        hex = shmtohex(shm);
+    console.log(i, g7, shm.toString(7), hex);
+});
+-->
+```plaintext
+ -idx       g7       shm         axial hex
+----------------------------------------------
+   -3        14        24     {q:   1, r:  1}
+   -2         =         2     {q:   0, r:  1}
+   -1         -         3     {q:  -1, r:  1}
+    0         0         0     {q:   0, r:  0}
+    1         1         1     {q:   1, r:  0}
+    2         2         6     {q:   1, r: -1}
+    3         3         5     {q:   0, r: -1}
+   10        -3        43     {q:  -4, r:  3}
+  100       202       216     {q:  12, r: -6}
+ 1000     1404-     51011     {q: -13, r: 35}
+```
+<div class=caption markdown=1>
+A few examples illustrating conversion from an index value `idx` to the corresponding
+`g7`, `shm` and axial hex coordinate.
+Note we flip the `idx` sign so that `0` and `1` are common in all three systems.
+The `g7` value ranges over all positive and negative integers written as digits `=-01234`,
+`shm` is a non-negative integer written in base 7 with digits `0123456`,
+and the axial hex coordinate uses Patel's cubical system.
+</div>
+
 Now we have all the ingredients to tame the flowsnake.
 If you want the gory details here's the [enumeration code][enumcode],
 but the end result is surprisingly simple (ignoring the painful journey there).
@@ -384,16 +415,16 @@ svg.append('path')
     .attr('d', line(ps));
 </script>
 
-<h3>Food for thought</h3>
+<h3>More food for thought</h3>
 
-My initial motivation was simple curiosity and a vague idea for
+My initial motivation was simple curiosity and a vague idea of
 an efficient one-dimensional
 enumeration of the infinite hexagonal grid
-which would form a
-universal identifier for working with hexagonal maps.
+forming a
+universal identifier for hex maps.
 Although it's an elegant solution I'm not sure it's worth the effort in practice.
 But as we know [hexagons are the bestagons][bestagons] so a number of other ideas
-popped up as I struggled with getting the enumeration code to work:
+popped up as I struggled to make the enumeration code work:
 
 [bestagons]: https://www.youtube.com/watch?v=thOifuHs6eY
 
@@ -453,7 +484,7 @@ popped up as I struggled with getting the enumeration code to work:
     There might be challenges with the recursive twisting of the tessellation, and
     the fact it doesn't generate a pure hexagon shape, but perhaps we could
     wrap the edges somehow to complete the sphere?
-    See also Uber's [H3][H3] [spherical polyhedron][sphericalpoly] tiling of hexagons with strategically placed pentagons,
+    See also Uber's [H3][H3] system representing the earth as a [spherical polyhedron][sphericalpoly] tiled with hexagons and a handful of strategically placed pentagons,
     and Google's [S2][S2] projection of the globe onto a cube of six connected Hilbert-curves.
 
 [geohash]: https://en.wikipedia.org/wiki/Geohash

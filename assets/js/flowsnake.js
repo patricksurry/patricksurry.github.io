@@ -111,8 +111,6 @@ function g7toshm(s) {
     ixs.forEach(i => {
         const pos = sgn < 0 ? 6 - i : i, d0 = pos2dir[pos], d = d0 ? ((d0 - 1 + rot) % 6 + 1) : 0;
         n = n * 7 + d;
-        if (s == '0')
-            console.log(s, n.toString(7), `i ${i} sgn ${sgn} pos ${pos} rot ${rot} d0 ${d0} d ${d}`);
         rot = (rot - 1 + pos2rot[pos] + 6) % 6;
         sgn *= pos2sgn[pos];
     });
