@@ -347,6 +347,7 @@ Phew!
   100       202       216     {q:  12, r: -6}
  1000     1404-     51011     {q: -13, r: 35}
 ```
+
 <div class=caption markdown=1>
 A few examples illustrating conversion from an index value `idx` to the corresponding
 `g7`, `shm` and axial hex coordinate.

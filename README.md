@@ -28,11 +28,18 @@ TODO
 
 [emoji]: https://www.fabriziomusacchio.com/blog/2021-08-16-emojis_for_Jekyll/
 
-- gospar curve
 
-- quadsnake https://math.stackexchange.com/questions/4638713/is-there-an-analogue-of-the-gosper-flowsnake-on-the-cartesian-lattice/4642255#4642255
+Articles
+---
+
+- mandelsnake https://math.stackexchange.com/questions/4638713/is-there-an-analogue-of-the-gosper-flowsnake-on-the-cartesian-lattice/4642255#4642255
 
 diagram https://docs.google.com/drawings/d/1HJgmXJP0U6lhY3hBPxyXK26HtawpgGHGX4x_1uuhIzc/edit
+
+- json-payload-chart
+  was git@gist.github.svc.internal.zone:853a1c8410c84a2125ea147666afcfe4.git in /Users/psurry/Hopper/json-payload-chart
+
+- sankey diagram
 
 - EF common solider; cartridge notes
 
@@ -42,8 +49,6 @@ diagram https://docs.google.com/drawings/d/1HJgmXJP0U6lhY3hBPxyXK26HtawpgGHGX4x_
 
 - codecs
 
-- json-payload-chart
-
 - pysimconnect
 
 - hopper/D3
@@ -51,10 +56,7 @@ diagram https://docs.google.com/drawings/d/1HJgmXJP0U6lhY3hBPxyXK26HtawpgGHGX4x_
     - isocost
 
 - universe of [flight data][spiralviz]
-
 [spiralviz]: https://docs.google.com/document/d1EyWhDc_M8hnzYk9AQ0hb_boOlNd8Ngku4Ge4ZX002z4/edit
-
-- softclip article
 
 - aide-memoire
 
