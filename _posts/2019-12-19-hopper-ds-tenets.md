@@ -11,7 +11,7 @@ Traditionally, buying travel has been time-consuming, frustrating and often leav
 By analyzing huge volumes of market pricing & demand data (trillions of records a month) and building personalized relationships with our users, we can increase transparency, reduce friction and make our customers happier.
 In many ways, data is our product: it helps us find better deals, understand customer needs, more efficiently match supply & demand, and even create unique products that help our customers better navigate uncertainty and risk.
 
-[hopper]: www.hopper.com
+[hopper]: https://www.hopper.com
 
 As such, data science will always be critical to Hopper’s success.
 But what does it mean to be successful as a data scientist at Hopper?
