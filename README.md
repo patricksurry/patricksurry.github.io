@@ -1,7 +1,7 @@
 Abracadata
 ===
 
-A collection of random blog postings about things I find interesting.
+A collection of postings about things I find interesting.
 Based on the Chirpy Starter, see the [theme's docs][starter].
 Served with jekyll on at [patricksurry.github.io][home].
 For local development [use][usage]:
@@ -28,9 +28,19 @@ TODO
 
 [emoji]: https://www.fabriziomusacchio.com/blog/2021-08-16-emojis_for_Jekyll/
 
+Links
+---
+
+- [hand-drawn svg path effects](https://observablehq.com/@oliviafvane/simple-pencil-ink-pen-effect-for-svg-path-using-filters)
+- [roughjs](https://roughjs.com/)
+https://heredragonsabound.blogspot.com/2020/02/creating-pencil-effect-in-svg.html
 
 Articles
 ---
+
+- Asimov "The Feeling of Power"
+
+- add'l notes for Tenets article from https://paper.dropbox.com/doc/Data-Science-Tenets--B0hq_CTOjCRe8mPJE_EbtfPCAg-pKpyPDpV3M415Uk7iSEIp
 
 - mandelsnake https://math.stackexchange.com/questions/4638713/is-there-an-analogue-of-the-gosper-flowsnake-on-the-cartesian-lattice/4642255#4642255
 
@@ -39,13 +49,15 @@ diagram https://docs.google.com/drawings/d/1HJgmXJP0U6lhY3hBPxyXK26HtawpgGHGX4x_
 - json-payload-chart
   was git@gist.github.svc.internal.zone:853a1c8410c84a2125ea147666afcfe4.git in /Users/psurry/Hopper/json-payload-chart
 
+  jq type example, e.g. with https://api.github.com/users/patricksurry/events or https://api.github.com/repos/patricksurry/eastern-front-1941/commits
+
 - sankey diagram
 
 - EF common solider; cartridge notes
 
 - Iquique
 
-- pydisass6502
+- pydisass6502 - quick tutorial on blind disassembly of the ef1941 cartridge image, note the code as data checksum thing
 
 - codecs
 
@@ -61,7 +73,3 @@ diagram https://docs.google.com/drawings/d/1HJgmXJP0U6lhY3hBPxyXK26HtawpgGHGX4x_
 - aide-memoire
 
 - calendar viz (rec-feed?)
-
-- geo / cyclic features articles
-
-- list ranking article

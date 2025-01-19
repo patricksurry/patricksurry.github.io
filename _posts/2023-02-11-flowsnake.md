@@ -2,7 +2,7 @@
 layout: post
 title:  "Taming the flowsnake and visualizing Covid proteins"
 date:   2023-02-11
-thumbnail: gosper.jpg
+thumbnail: flowsnake.png
 math: true
 tags: math dataviz hexagons
 ---
@@ -160,6 +160,7 @@ I stumbled on this idea via a note in
 Amit Patel's great [hexagonal grid reference][hexref].
 He links a stackoverflow question about [spiral honeycomb mosaic (SHM) coordinates][shmq].
 This is a system for enumerating an infinite hex grid.
+(See also the similar [generalized balanced ternary address][gbt] labeling.)
 We count in base 7 starting with the origin at 0,
 and label its six immediate neighbors 1 through 6
 to form a super-hex of seven individual hexagons.
@@ -177,6 +178,7 @@ Spiral honeycomb mosaic (SHM) coordinates give a recursive enumeration of an inf
 
 [hexref]: https://www.redblobgames.com/grids/hexagons/
 [shmq]: https://gamedev.stackexchange.com/questions/71785/converting-between-spiral-honeycomb-mosaic-and-axial-hex-coordinates
+[gbt]: https://www.asprs.org/wp-content/uploads/pers/1988journal/nov/1988_nov_1565-1570.pdf
 
 The SHM enumeration of the hex grid is straightforward,
 but if we draw the path connecting sequential numbers

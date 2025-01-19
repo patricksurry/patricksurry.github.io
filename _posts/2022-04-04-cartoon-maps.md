@@ -7,7 +7,10 @@ tags: d3 maps dataviz
 ---
 
 A quick visualization experiment to create an informal / cartoonish map
-reminiscent of the game of *Risk*.
+reminiscent of the game of *Risk*.  The watercolor country border style is
+achieved by drawing a wide stroke around each country in the same color as
+the semi-transparent fill, then applying Gaussian blur to smudge the border
+while clipping to the original outline leaving a sharp boundary.
 
 <!--more-->
 
@@ -21,6 +24,41 @@ reminiscent of the game of *Risk*.
 
 <div id='demo'></div>
 
+See page source for the full details, but the key pieces are these:
+
+```css
+.country {
+  /* wide rounded stroke as the basis for blur */
+  stroke-width: 8;
+  stroke-linejoin: round;
+  /* semi-transparent fill */
+  fill-opacity: 0.33;
+}
+```
+
+```js
+// blur that we'll apply to each region
+svg.append("filter")
+    .attr("id", "blur")
+    .append("feGaussianBlur")
+    .attr("in", "SourceGraphic")
+    .attr("stdDeviation", 4);
+...
+// use predeclared path for each country to draw the region for stroke and fill as well as clipping
+svg.append('g')
+    .attr("class", "countries")
+    .selectAll('.country')
+    .data(countries)
+  .enter().append('g')
+    .attr("class", "country")
+    .append("use")
+    .attr("xlink:href", d => "#" + d.properties.adm0_a3)
+    .attr("clip-path", d => `url(#inside-${d.properties.adm0_a3})`)
+    .attr("filter", "url(#blur)")
+    .style("stroke", countrycolor)
+    .style("fill", countrycolor);
+```
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
@@ -28,7 +66,7 @@ reminiscent of the game of *Risk*.
 <style>
 #demo {
   font-family: 'Architects Daughter', cursive;
-  font-size: 16pt;
+  font-size: 12pt;
   margin: 0;
   background-color: lavender;
 }
@@ -41,7 +79,7 @@ svg {
   fill-opacity: 0.33;
 }
 .city path{
-  fill:  #33;
+  fill:  #333;
 }
 .country text {
   font-size: 120%;
@@ -56,80 +94,78 @@ text {
 
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script>
-var width = 768,
-    height = 450;
-
-var svg = d3.select("#demo").append("svg")
+const
+  width = 768,
+  height = 450,
+  svg = d3.select("#demo").append("svg")
     .attr("width", width)
     .attr("height", height);
-
+//
 svg.append("filter")
     .attr("id", "blur")
     .append("feGaussianBlur")
     .attr("in", "SourceGraphic")
     .attr("stdDeviation", 4);
-
-var defs = svg.append("defs");
-
+//
+const defs = svg.append("defs");
+//
 Promise.all([
   d3.json("https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_admin_0_countries.geojson"),
   d3.json("https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_50m_populated_places_simple.geojson"),
 ]).then(
 function([countrygeo, citygeo]) {
-    let
+    const
       cities = citygeo.features.filter(d =>
           d.megacity || d.properties.scalerank <= 2
         ),
       a3s = cities.map(d => d.properties.adm0_a3),
-      countries = countrygeo.features //.filter(d => a3s.includes(d.properties.adm0_a3));
-
-    var projection = d3.geoEqualEarth()
+      countries = countrygeo.features,
+      countrycolor = d => d3.schemeTableau10[d.properties.mapcolor7],
+      projection = d3.geoEqualEarth()
         .fitSize([width, height], {type: 'FeatureCollection', features: countries})
         .center([20, 45])
-        .scale(width)
-
-    var path = d3.geoPath()
+        .scale(width),
+      path = d3.geoPath()
         .projection(projection);
-
+//
     defs.selectAll("path")
         .data(countries)
       .enter().append("path")
         .attr("id", d => d.properties.adm0_a3)
         .attr("d", path)
-
+//
     defs.selectAll("clipPath")
         .data(countries)
       .enter().append("clipPath")
         .attr("id", d => "inside-" + d.properties.adm0_a3)
         .append("use")
         .attr("xlink:href", d => "#" + d.properties.adm0_a3)
-
-    let shapes = svg.append('g')
+//
+    svg.append('g')
         .attr("class", "countries")
         .selectAll('.country')
         .data(countries)
       .enter().append('g')
-        .attr("class", "country");
-
-    shapes
+        .attr("class", "country")
         .append("use")
         .attr("xlink:href", d => "#" + d.properties.adm0_a3)
         .attr("clip-path", d => `url(#inside-${d.properties.adm0_a3})`)
         .attr("filter", "url(#blur)")
-        .style("stroke", d => d3.schemeTableau10[d.properties.mapcolor7])
-        .style("fill", d => d3.schemeTableau10[d.properties.mapcolor7]);
-
-    let dots = svg.append('g')
+        .style("stroke", countrycolor)
+        .style("fill", countrycolor);
+//
+    const dots = svg.append('g')
         .attr("class", "cities")
         .selectAll(".city")
         .data(cities)
       .enter().append("g")
         .attr("class", "city")
         .attr('transform', d => {
-          let [x, y] = projection(d.geometry.coordinates);
+          const [x, y] = projection(d.geometry.coordinates);
           return `translate(${x}, ${y})`;
         })
         .datum(d => d.properties);
+//
     dots.append('path')
       .attr("d", d => d3.symbol(d.adm0cap ? d3.symbolStar: d3.symbolCircle, 2*(3 - Math.sqrt(d.scalerank)))());
     dots.append('text')
