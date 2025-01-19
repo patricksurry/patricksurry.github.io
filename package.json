@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "d3-geo": "^3.1.0",
+    "d3-scale": "^4.0.2",
+    "luxon": "^3.3.0",
+    "suncalc": "^1.9.0"
+  }
+}
