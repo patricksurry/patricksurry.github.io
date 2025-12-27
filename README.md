@@ -6,6 +6,7 @@ Based on the Chirpy Starter, see the [theme's docs][starter].
 Served with jekyll on at [patricksurry.github.io][home].
 For local development [use][usage]:
 
+    bundle install      # initial setup
     bundle exec jekyll s --drafts
 
 [home]: https://github.com/patricksurry/patricksurry.github.io

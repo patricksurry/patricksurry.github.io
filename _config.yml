@@ -96,8 +96,11 @@ cdn:
 # the avatar on sidebar, support local or CORS resources
 avatar: /assets/img/penguin.jpg
 
-# where to serve bl.ocks.org gists
+#PDS where to serve bl.ocks.org gists
 blocks_url: https://blocks.roadtolarissa.com
+
+#PDS configure automated post excerpts
+excerpt_separator: <!--more-->
 
 # The URL of the site-wide social preview image used in SEO `og:image` meta tag.
 # It can be overridden by a customized `page.image` in front matter.
