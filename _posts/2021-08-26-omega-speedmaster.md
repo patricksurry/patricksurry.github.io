@@ -22,9 +22,9 @@ of its flexibility to create complex, working gauges that look good.
 
 <script>
 g3.panel()
-  .width(800).height(500)
+  .width(500).height(500)
   .append(
-    g3.put().x(400).y(250).scale(2).append(
+    g3.put().x(250).y(250).scale(2).append(
       g3.contrib.clocks.omegaSpeedmaster()
     )
   )('#demo');
