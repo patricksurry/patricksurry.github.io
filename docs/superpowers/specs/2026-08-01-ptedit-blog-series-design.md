@@ -107,7 +107,7 @@ Three needs, three answers:
 | what | tool |
 |------|------|
 | Real editor sessions — scrolling, soft wrap, guard zones; later the port running | [asciinema-player](https://github.com/asciinema/asciinema-player), self-hosted (`asciinema-player.min.js` + `.css`, Apache-2.0). ptedit is a curses app, so record the real thing. |
-| Schematic model diagrams — chain rewiring, stack push/truncate, ladder rungs | Custom, in-page. See [the open question](#open-question-resolved-by-spike). |
+| Schematic model diagrams — chain rewiring, stack push/truncate, ladder rungs | Custom, in-page: a curated frame sequence with play/step/scrub. See [Animation approach](#animation-approach-resolved). |
 | Command-typing demos | None. This is termynal's niche and the series has no such need. |
 
 **Termynal** ([MIT](https://github.com/ines/termynal), used in the FastAPI/Typer
@@ -124,48 +124,56 @@ frame zero of the animation. With JS off, or before phase 2 exists, the post sho
 correct static ASCII diagram. Animation is purely additive — no rewrite of a shipped
 post.
 
-### Open question, resolved by spike
+### Animation approach (resolved)
 
-Post 1's animation could be either:
+The two candidates were **(a)** an interactive JS piece-model the reader types into,
+and **(b)** a curated sequence of fixed ASCII frames with play/step/scrub.
 
-- **(a) Interactive JS piece-model** — ~150 lines implementing pieces, edits,
-  insert/delete, undo/redo (no layout, wrap, curses, keymap, or search). The reader
-  types their own text and watches their own chain rewire and stack truncate. It can
-  also render the chain trace live, which is what removes the need for any
-  pre-generated artifact.
-- **(b) Fixed ASCII frames** — a frame array with play/step/scrub, no model.
+**Resolved in favour of (b), fixed frames.** The spike (~125 lines, ported from
+`piece.py` and `edit.py`) worked correctly — insert, delete, undo, redo, and chain and
+stack renderings that closely match the book's hand-drawn diagrams. It failed on both
+of the recorded criteria anyway:
 
-(a) is materially better if it feels good, and matches what the flowsnake and
-hexcubes posts already do. (b) is cheaper and carries no reimplementation risk.
+- **Width.** The teaching diagram needs to fit a blog code block, ~80 characters. The
+  book's hand-drawn stack diagram is 82. Typing a single six-letter word into a
+  thirteen-character document produced **25 stack cells and a 204-character diagram**.
+  Even assuming perfect coalescing, one insert measured 92 characters and two edits on
+  a 43-character document measured 118 — and the width only ever grows as the reader
+  types.
+- **Model creep.** Getting anywhere near legible requires coalescing, which is the most
+  intricate part of `edit.py`: the compatibility rules, trimming the correct piece from
+  the correct side, and the sealed load edit. The spike reached 125 lines *without* it,
+  so implementing it would clearly breach the budget.
 
-**This is resolved by building a throwaway mock first, before either post is
-drafted** — the answer may change how post 1 is structured around the widget.
+The underlying reason is more useful than either measurement. The diagram teaches *one
+transition* — ur-piece splitting into pre/ins/post, then undo rerouting around it.
+Free-form input hands the reader arbitrary states, nearly all of which are wider and
+less pointed than the curated one. Interactivity actively competes with the teaching
+goal here, which is not what it does on the flowsnake or hexcubes posts, where the
+whole subject *is* the space of states.
 
-(a) wins if typing arbitrary text into it produces chain and stack views that teach
-the idea better than a curated sequence would, and the model stays near ~150 lines.
-(a) loses if the model creeps toward the editor, or if free-form input mostly
-produces states that are less illustrative than hand-picked ones — in which case a
-curated frame sequence is not a compromise but the better teaching tool.
-
-Post 2's ladder animation does **not** use (a) under any outcome: a JS ladder means
-reimplementing soft wrap and layout, which is where "small model" stops being true.
-It uses fixed frames or asciinema of the real editor.
+So a curated frame sequence is the better teaching tool, not a fallback. Post 2's
+ladder animation was never a candidate for (a) — a JS ladder means reimplementing soft
+wrap and layout — and it likewise uses fixed frames, or asciinema of the real editor.
 
 ### Consequence: no generated artifacts
 
-If the spike lands on (a), nothing in the posts is pre-generated, and so:
+Nothing in the posts is pre-generated at build time:
 
 - `regen.sh` is not carried over to the blog.
-- `book/src/generated/chain-trace.txt` is not carried over.
-- No cross-repo sync between `ptedit` and `abracadata`, and no drift guard is needed
-  on the blog side.
-
-If the spike lands on (b), post 1 inlines the trace as a static snapshot with a
-"generated by `examples/trace_chain.py`" note. Even then, do not automate cross-repo
-generation — it is two artifacts and three posts.
+- `book/src/generated/chain-trace.txt` is not carried over. Post 1 as drafted omits the
+  trace entirely rather than inlining it as a snapshot — it is a debug-repr dump, which
+  is code-tour material, and the post reads fine without it.
+- No cross-repo sync between `ptedit` and `abracadata`, and no drift guard on the blog
+  side.
 
 `tests/test_book_examples.py` stays in `ptedit` as long as `book/` does, and retires
 with it.
+
+One option worth keeping for phase 2: the spike model renders correct chain and stack
+diagrams, so it could *emit* the curated frame sequence offline, once, guaranteeing the
+frames are model-accurate rather than hand-drawn. That is a one-time authoring aid, not
+a build dependency, and it does not resurrect any sync obligation.
 
 ## Jekyll mechanics
 
