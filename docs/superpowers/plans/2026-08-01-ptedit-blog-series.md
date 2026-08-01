@@ -28,7 +28,13 @@
   ```
 - Source chapters are read-only inputs at `~/ptedit/book/src/`. Do not edit them during this project.
 - Do not change the ptedit implementation. Bugs or unclear design found while writing go in `~/ptedit/TODO.md`.
-- Word targets: post 1 ~2,300 words; post 2 1,800–2,000 words. Measure with `wc -w` on the file including front matter (front matter is ~10 words, ignore the difference).
+- Word targets: post 1 ~2,000 words of prose; post 2 1,800–2,000 words of prose.
+  **Measure prose only** — plain `wc -w` counts the ASCII diagrams, which add ~300
+  apparent words per post and will make a correctly-sized draft look bloated:
+  ```bash
+  python3 -c "import re,sys; b=open(sys.argv[1]).read().split('---',2)[2]; \
+    print(len(re.sub(r'\`\`\`.*?\`\`\`','',b,flags=re.S).split()))" <file>
+  ```
 
 ---
 
@@ -397,8 +403,12 @@ This step needs a human eye — produce a candidate, then **show it to the user 
 - [ ] **Step 2: Build with drafts included**
 
 ```bash
-cd ~/abracadata && JEKYLL_ENV=production bundle exec jekyll build --drafts
+cd ~/abracadata && JEKYLL_ENV=production bundle exec jekyll build --drafts --future
 ```
+
+`--future` is required: the drafts carry authoring dates that may be later than today,
+and Jekyll silently skips future-dated posts, reporting only
+`Skipping: <file> has a future date`. Without it a draft looks built but is absent.
 
 Expected: `done in N seconds`, no Liquid warnings, no "Conflict:" lines.
 
