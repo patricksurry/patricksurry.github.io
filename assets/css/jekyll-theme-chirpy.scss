@@ -9,33 +9,19 @@
 
 /* append your custom style below */
 
-#sidebar #avatar>a { border: none !important}
-
 #post-list .card-text.content p {
     -webkit-line-clamp: 4 !important;
 }
 
-.post-listitem {
-    display: flex;
-}
-.post-item {
-    flex: 1;
-}
-.post-thumbnail {
-    margin: 0 0 1rem 30px;
-    width: 160px;
-    height: 120px;
-    border-radius: 10px;
+/* zoom the card thumbnail on hover; .preview-img is the theme's own wrapper
+   and already clips to the card's rounded corner */
+#post-list .preview-img {
     overflow: hidden;
 }
-.post-thumbnail img {
-    transition: all 0.3s;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scale(1);
+#post-list .preview-img img {
+    transition: transform 0.3s ease;
 }
-.post-thumbnail:hover img {
+#post-list .card-wrapper:hover .preview-img img {
     transform: scale(1.1);
 }
 

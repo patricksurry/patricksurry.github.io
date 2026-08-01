@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Taming the flowsnake and visualizing Covid proteins"
+title:  "Taming the flowsnake to visualize Covid"
 date:   2023-02-11
 image:
   path: /assets/img/thumbs/flowsnake.png
