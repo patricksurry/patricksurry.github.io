@@ -2,7 +2,8 @@
 layout: post
 title: "Rotating a 3D globe with D3"
 date: 2013-06-06
-thumbnail: globe3d.png
+image:
+  path: /assets/img/thumbs/globe3d.png
 tags: d3 dataviz
 ---
 

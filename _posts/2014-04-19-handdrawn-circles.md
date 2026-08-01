@@ -2,7 +2,8 @@
 layout: post
 title:  "Hand drawn circles"
 date:   2014-04-19
-thumbnail: handdrawn-circles.png
+image:
+  path: /assets/img/thumbs/handdrawn-circles.png
 math: true
 tags: math dataviz d3
 ---

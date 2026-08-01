@@ -2,7 +2,8 @@
 layout: post
 title:  "Geographic heatmap in D3"
 date:   2017-11-21
-thumbnail: geoheat.png
+image:
+  path: /assets/img/thumbs/geoheat.png
 tags: d3 dataviz
 ---
 

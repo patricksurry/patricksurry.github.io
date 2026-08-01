@@ -2,7 +2,8 @@
 layout: post
 title:  "Hopper’s data science DNA: the tenets we live by"
 date:   2019-12-19
-thumbnail: ds-tenets.png
+image:
+  path: /assets/img/thumbs/ds-tenets.png
 tags: datascience hopper
 ---
 

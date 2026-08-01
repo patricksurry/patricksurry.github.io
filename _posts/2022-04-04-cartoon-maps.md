@@ -2,7 +2,8 @@
 layout: post
 title:  "Cartoon maps"
 date:   2022-04-04
-thumbnail: cartoon-map.jpg
+image:
+  path: /assets/img/thumbs/cartoon-map.jpg
 tags: d3 maps dataviz
 ---
 

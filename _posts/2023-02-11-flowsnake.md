@@ -2,7 +2,8 @@
 layout: post
 title:  "Taming the flowsnake and visualizing Covid proteins"
 date:   2023-02-11
-thumbnail: flowsnake.png
+image:
+  path: /assets/img/thumbs/flowsnake.png
 math: true
 tags: math dataviz hexagons
 ---

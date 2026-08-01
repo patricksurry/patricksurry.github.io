@@ -2,7 +2,8 @@
 layout: post
 title:  "Omega Speedmaster Demo"
 date:   2021-08-26
-thumbnail: speedmaster.png
+image:
+  path: /assets/img/thumbs/speedmaster.png
 tags: g3 gauges dataviz
 ---
 

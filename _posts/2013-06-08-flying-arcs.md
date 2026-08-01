@@ -2,7 +2,8 @@
 layout: post
 title:  "Flying arcs on a globe"
 date:   2013-06-08
-thumbnail: flyingarcs.jpg
+image:
+  path: /assets/img/thumbs/flyingarcs.jpg
 tags: d3 dataviz
 ---
 

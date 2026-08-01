@@ -2,7 +2,8 @@
 layout: post
 title:  "Rolling pan and zoom with D3 Mercator projection"
 date:   2013-09-19
-thumbnail: rollpan.jpg
+image:
+  path: /assets/img/thumbs/rollpan.jpg
 tags: d3 dataviz
 ---
 

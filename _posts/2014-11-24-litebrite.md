@@ -2,7 +2,8 @@
 layout: post
 title:  "Litebrite flight shopping animation"
 date:   2014-11-24
-thumbnail: litebrite.jpg
+image:
+  path: /assets/img/thumbs/litebrite.jpg
 tags: dataviz d3 hexagons
 ---
 
