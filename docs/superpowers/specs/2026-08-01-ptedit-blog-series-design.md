@@ -107,8 +107,13 @@ Three needs, three answers:
 | what | tool |
 |------|------|
 | Real editor sessions — scrolling, soft wrap, guard zones; later the port running | [asciinema-player](https://github.com/asciinema/asciinema-player), self-hosted (`asciinema-player.min.js` + `.css`, Apache-2.0). ptedit is a curses app, so record the real thing. |
-| Schematic model diagrams — chain rewiring, stack push/truncate, ladder rungs | Custom, in-page: a curated frame sequence with play/step/scrub. See [Animation approach](#animation-approach-resolved). |
+| Schematic model diagrams — chain rewiring, stack push/truncate, ladder rungs | asciinema as well. `ptedit/tools/render_frames.py --play` animates model-derived frames in the terminal, so recording it needs no bespoke player. See [Animation approach](#animation-approach-resolved). |
 | Command-typing demos | None. This is termynal's niche and the series has no such need. |
+
+**One mechanism covers both rows.** The schematic diagrams were originally going to
+need a custom in-page frame player; making the frame generator animate in the terminal
+means asciinema records those too. No custom player, no frame JSON shipped to the
+browser, one embed mechanism for the series.
 
 **Termynal** ([MIT](https://github.com/ines/termynal), used in the FastAPI/Typer
 docs) is the right *look* and the wrong *mechanism* — it animates a typewriter
@@ -155,6 +160,23 @@ whole subject *is* the space of states.
 So a curated frame sequence is the better teaching tool, not a fallback. Post 2's
 ladder animation was never a candidate for (a) — a JS ladder means reimplementing soft
 wrap and layout — and it likewise uses fixed frames, or asciinema of the real editor.
+
+**How the frames are produced and delivered.** `ptedit/tools/render_frames.py` drives a
+real `Document` through a scripted session and renders each step as text, chain and
+stack, so the frames cannot disagree with what the editor actually does. `--play`
+animates them in the terminal; `asciinema rec` captures that, and the post embeds the
+`.cast`. The stack keeps the write-up's horizontal boxed form, wrapped to a column
+width, with colour carrying the three cell kinds (Edit, Piece, string) so the boxes
+stay narrow and redoable cells can be dimmed.
+
+The static fallback for a JS-disabled reader is the hand-drawn stack diagram already in
+post 1's prose — the recording is an enhancement beside it, not a replacement, which is
+what satisfies success criterion 3.
+
+Writing the session script surfaced a real bug in the model (coalescing after an undo
+left a stale redo that discarded the typing, `ptedit` commit `bcb3366`). That is the
+argument for model-derived frames in one line: a hand-drawn animation would have
+confidently shown a truncation that wasn't happening.
 
 ### Consequence: no generated artifacts
 
